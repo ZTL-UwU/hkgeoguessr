@@ -16,7 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from problem.views import ProblemView
+
 urlpatterns = [
-    path('problem/', include('problem.urls')),
+    path('api/problem/<int:pid>', ProblemView.as_view()),
     path('admin/', admin.site.urls),
 ]
