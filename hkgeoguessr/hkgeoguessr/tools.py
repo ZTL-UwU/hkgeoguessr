@@ -32,7 +32,7 @@ def check_ans(usr_end_geo, start_geo, end_geo):
 
 
 # Check registration email
-def isEmail(str):
+def is_email(str):
     p = re.compile(r"^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$")
 
     if p.match(str):
