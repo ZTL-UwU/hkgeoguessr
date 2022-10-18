@@ -1,4 +1,5 @@
 from email.policy import default
+from xml.etree.ElementInclude import default_loader
 from django.db import models
 
 
@@ -11,6 +12,8 @@ class Problem(models.Model):
     end_geo = models.IntegerField(default=0)
 
     answered = models.IntegerField(default=0)
+    correct = models.IntegerField(default=0)
+    wrong = models.IntegerField(default=0)
 
     class Meta:
         indexes = [

@@ -18,11 +18,19 @@ from django.urls import path
 
 from problem.views import (ProblemView, ProblemAnswerView)
 
+from account.views import (
+    AccountView,
+)
+
 urlpatterns = [
     # Problem
     path('api/problem/<int:pid>', ProblemView.as_view()),
     path('api/problem', ProblemView.as_view()),
     path('api/problem/ans/<int:pid>', ProblemAnswerView.as_view()),
+
+    # Account
+    path('api/account', AccountView.as_view()),
+    path('api/account/<int:uid>', AccountView.as_view()),
 
     # Admin
     path('admin/', admin.site.urls),

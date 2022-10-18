@@ -17,16 +17,16 @@ class ProblemView(APIView):
     def get(self, request, pid):
         problem = get_object_or_404(Problem, pid=pid)
 
-        ps = ProblemSerializer(problem)
-        return Response({'res': ps.data}, status=status.HTTP_200_OK)
+        serializer = ProblemSerializer(problem)
+        return Response({'res': serializer.data}, status=status.HTTP_200_OK)
 
     # Add new problem
     def post(self, request):
         data = request.data
 
-        ps = ProblemSerializer(data=data)
-        ps.is_valid(raise_exception=True)
-        ps.save()
+        serializer = ProblemSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
 
         return Response(status=status.HTTP_201_CREATED)
 
