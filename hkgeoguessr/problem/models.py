@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 
 
@@ -8,6 +9,8 @@ class Problem(models.Model):
 
     start_geo = models.IntegerField(default=0)
     end_geo = models.IntegerField(default=0)
+
+    answered = models.IntegerField(default=0)
 
     class Meta:
         indexes = [
