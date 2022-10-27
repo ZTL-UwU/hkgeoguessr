@@ -38,7 +38,7 @@ class PlaceAnswerView(APIView):
         place = get_object_or_404(Place, pid=pid)
         user = get_object_or_404(Account, request.user.uid)
 
-        update_rating(user, problem=place, O=check_ans(
-            request.data['pos'], place.pos))
+        update_rating(user, problem=place, O=check_ans_place(
+            request.data['pos_x'], request.data['pos_y'], place.pos_x, place.pos_y))
 
         return Response(status=status.HTTP_201_CREATED)

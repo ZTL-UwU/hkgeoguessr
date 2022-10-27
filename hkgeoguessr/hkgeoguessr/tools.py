@@ -8,6 +8,8 @@ Correct -> O = 1
 Wrong   -> O = 9
 """
 K0 = 32
+
+
 def update_rating(usr, problem, O):
     diff = problem.rating - usr.rating
     P = 1 / (1 + 10 ** (diff / 400))
@@ -26,12 +28,16 @@ def update_rating(usr, problem, O):
     usr.save()
 
 
-# Check user answer
+# Check money answer
 def check_ans_money(usr_end_geo, start_geo, end_geo):
     return abs(usr_end_geo - end_geo) <= abs(end_geo - start_geo) * 1 / 5
 
-def check_ans_place(user_place, ans_place):
-    return user_place == ans_place
+# !!!NOT COMPLETED!!!
+# Check place answer
+
+
+def check_ans_place():
+    return True
 
 
 # Check registration email

@@ -8,7 +8,8 @@ class Place(models.Model):
     pic_link = models.TextField(blank=True, null=True)
     rating = models.IntegerField(default=1500)
 
-    pos = models.IntegerField(default=0)
+    pos_x = models.IntegerField(default=0)
+    pos_y = models.IntegerField(default=0)
 
     answered = models.IntegerField(default=0)
     correct = models.IntegerField(default=0)
