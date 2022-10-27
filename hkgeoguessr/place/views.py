@@ -6,39 +6,39 @@ from rest_framework.response import Response
 
 from hkgeoguessr.tools import (check_ans_place, update_rating)
 
-from .serializers import MoneySerializer
-from money.models import Money
+from .serializers import PlaceSerializer
+from .models import Place
 from account.models import Account
 
 
-class MoneyView(APIView):
+class PlaceView(APIView):
 
     # Get problem content
     def get(self, request, pid):
-        money = get_object_or_404(Money, pid=pid)
+        place = get_object_or_404(Place, pid=pid)
 
-        serializer = MoneySerializer(money)
+        serializer = PlaceSerializer(place)
         return Response({'res': serializer.data}, status=status.HTTP_200_OK)
 
     # Add new problem
     def post(self, request):
         data = request.data
 
-        serializer = MoneySerializer(data=data)
+        serializer = PlaceSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
         return Response(status=status.HTTP_201_CREATED)
 
 
-class MoneyAnswerView(APIView):
+class PlaceAnswerView(APIView):
 
     # Answer a problem
     def post(self, request, pid):
-        money = get_object_or_404(Money, pid=pid)
+        place = get_object_or_404(Place, pid=pid)
         user = get_object_or_404(Account, request.user.uid)
 
-        update_rating(user, problem=money, O=check_ans_place(
-            request.data['end_geo'], money.start_geo, money.end_geo))
+        update_rating(user, problem=place, O=check_ans(
+            request.data['pos'], place.pos))
 
         return Response(status=status.HTTP_201_CREATED)

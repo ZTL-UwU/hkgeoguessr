@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     # My Apps
     'money.apps.MoneyConfig',
+    'place.apps.PlaceConfig',
     'account.apps.AccountConfig',
 ]
 

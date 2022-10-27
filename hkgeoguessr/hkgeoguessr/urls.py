@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from money.views import (MoneyView, MoneyAnswerView)
+from place.views import (PlaceView, PlaceAnswerView)
 
 from account.views import (
     AccountView,
@@ -24,10 +25,15 @@ from account.views import (
 )
 
 urlpatterns = [
-    # Problem
-    path('api/problem/<int:pid>', MoneyView.as_view()),
-    path('api/problem', MoneyView.as_view()),
-    path('api/problem/ans/<int:pid>', MoneyAnswerView.as_view()),
+    # Money problem
+    path('api/money/<int:pid>', MoneyView.as_view()),
+    path('api/money', MoneyView.as_view()),
+    path('api/money/ans/<int:pid>', MoneyAnswerView.as_view()),
+
+    # Place problem
+    path('api/place/<int:pid>', PlaceView.as_view()),
+    path('api/place', PlaceView.as_view()),
+    path('api/place/ans/<int:pid>', PlaceAnswerView.as_view()),
 
     # Account
     path('api/account', AccountView.as_view()),

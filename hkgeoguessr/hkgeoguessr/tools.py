@@ -27,8 +27,11 @@ def update_rating(usr, problem, O):
 
 
 # Check user answer
-def check_ans(usr_end_geo, start_geo, end_geo):
+def check_ans_money(usr_end_geo, start_geo, end_geo):
     return abs(usr_end_geo - end_geo) <= abs(end_geo - start_geo) * 1 / 5
+
+def check_ans_place(user_place, ans_place):
+    return user_place == ans_place
 
 
 # Check registration email
