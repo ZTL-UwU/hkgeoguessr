@@ -6,39 +6,39 @@ from rest_framework.response import Response
 
 from hkgeoguessr.tools import (check_ans, update_rating)
 
-from .serializers import ProblemSerializer
-from problem.models import Problem
+from .serializers import MoneySerializer
+from money.models import Money
 from account.models import Account
 
 
-class ProblemView(APIView):
+class MoneyView(APIView):
 
     # Get problem content
     def get(self, request, pid):
-        problem = get_object_or_404(Problem, pid=pid)
+        money = get_object_or_404(Money, pid=pid)
 
-        serializer = ProblemSerializer(problem)
+        serializer = MoneySerializer(money)
         return Response({'res': serializer.data}, status=status.HTTP_200_OK)
 
     # Add new problem
     def post(self, request):
         data = request.data
 
-        serializer = ProblemSerializer(data=data)
+        serializer = MoneySerializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
         return Response(status=status.HTTP_201_CREATED)
 
 
-class ProblemAnswerView(APIView):
+class MoneyAnswerView(APIView):
 
     # Answer a problem
     def post(self, request, pid):
-        problem = get_object_or_404(Problem, pid=pid)
-        user = get_object_or_404(Account, uid=request.data['uid'])
+        money = get_object_or_404(Money, pid=pid)
+        user = get_object_or_404(Account, request.user.uid)
 
-        update_rating(user, problem=problem, O=check_ans(
-            request.data['end_geo'], problem.start_geo, problem.end_geo))
+        update_rating(user, problem=money, O=check_ans(
+            request.data['end_geo'], money.start_geo, money.end_geo))
 
         return Response(status=status.HTTP_201_CREATED)

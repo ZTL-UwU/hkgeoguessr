@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.db.utils import IntegrityError
+from django.contrib import auth
 
 from rest_framework import status
 from rest_framework.views import APIView
@@ -43,3 +44,36 @@ class AccountView(APIView):
             )
         else:
             return Response({'detail': 'Failed to create user.'}, status=status.HTTP_409_CONFLICT)
+
+
+class AccountSessionView(APIView):
+
+    # Login
+    def post(self, request):
+        data = request.data
+        username = data.get('username')
+        password = data.get('password')
+
+        user = auth.authenticate(request, username=username, password=password)
+
+        if user:
+            auth.login(request, user)
+
+            return Response(
+                {'detail': 'Success', 'res': {'id': user.id}},
+                status=status.HTTP_201_CREATED,
+            )
+        else:
+            return Response(
+                {'detail': 'Username or password wrong'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+    # Logout
+    def delete(self, request):
+
+        if not request.user.is_authenticated:
+            return Response({'detail': 'Not logged in'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        auth.logout(request)
+        return Response(status=status.HTTP_204_NO_CONTENT)

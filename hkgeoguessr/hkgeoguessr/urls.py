@@ -16,21 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from problem.views import (ProblemView, ProblemAnswerView)
+from money.views import (MoneyView, MoneyAnswerView)
 
 from account.views import (
     AccountView,
+    AccountSessionView
 )
 
 urlpatterns = [
     # Problem
-    path('api/problem/<int:pid>', ProblemView.as_view()),
-    path('api/problem', ProblemView.as_view()),
-    path('api/problem/ans/<int:pid>', ProblemAnswerView.as_view()),
+    path('api/problem/<int:pid>', MoneyView.as_view()),
+    path('api/problem', MoneyView.as_view()),
+    path('api/problem/ans/<int:pid>', MoneyAnswerView.as_view()),
 
     # Account
     path('api/account', AccountView.as_view()),
     path('api/account/<int:uid>', AccountView.as_view()),
+    path('api/account/session', AccountSessionView.as_view()),
 
     # Admin
     path('admin/', admin.site.urls),

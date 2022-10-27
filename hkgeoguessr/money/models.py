@@ -3,7 +3,7 @@ from xml.etree.ElementInclude import default_loader
 from django.db import models
 
 
-class Problem(models.Model):
+class Money(models.Model):
     pid = models.IntegerField(unique=True)
     video_link = models.TextField(blank=True, null=True)
     rating = models.IntegerField(default=1500)
